@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AtlasGuessr</title>
+    <link rel="stylesheet" href="stylea.css" />
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <style>
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0;
+        padding: 0 20px;
+        height: 53px;
+        width: 100%;
+        position: fixed;
+        cursor: default;
+        background: var(--bg-color) !important;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        text-decoration: none;
+        border: none;
+        scroll-behavior: smooth;
+        font-family: "Poppins", sans-serif;
+        color: var(--text-color);
+      }
+
+      html {
+        overflow-x: hidden;
+      }
+
+      :root {
+        --bg-color: #1f242d;
+        --second-bg-color: #323946;
+        --text-color: #fff;
+        --main-color: #0ef;
+      }
+
+      body {
+        background: var(--bg-color);
+        color: var(--text-color);
+      }
+
+      section {
+        min-height: 100vh;
+        padding: 10rem 9% 2rem;
+      }
+
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 2rem 9%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+        background: var(--bg-color) !important;
+      }
+
+      .header.sticky {
+        border-bottom: 0.1rem solid rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <nav style="z-index: 69">
+        <div class="logo-container">
+          <img
+            id="logo1"
+            src="images/favicon.png"
+            alt="An island with palms as a logo"
+          />
+          <h1 id="logoa">AtlasGuessr</h1>
+        </div>
+
+        <i class="bx bx-menu" id="menu-icon"></i>
+
+        <div class="navibar">
+          <a href="#home" class="active">About Us</a>
+          <a href="#aboutsite">The Site</a>
+          <a href="#aboutdis">Discord Server</a>
+          <a href="#skills">Skills</a>
+          <a href="#portfolio">Portfolio</a>
+        </div>
+      </nav>
+    </header>
+
+    <div id="overlay" class="overlay" onclick="closeModal()"></div>
+
+    <div id="more" class="more">
+      <h2 id="h2more"></h2>
+      <p id="pmore"></p>
+      <button onclick="closeModal()" id="closebtn">Close</button>
+    </div>
+
+    <section class="home" id="home">
+      <div class="home-content">
+        <h3>Hello, It's Us,</h3>
+        <h1>CodeRoyale</h1>
+        <h3>And we are <span class="multiple-text"></span></h3>
+        <br />
+        <p>
+          Welcome to CodeRoyale, where we build and optimize dynamic Discord
+          communities, powerful bots, and innovative geo-based websites. Our
+          mission is to create seamless, automated, and engaging digital
+          experiences that enhance online interactions. With cutting-edge
+          technology and a passion for innovation, we bring ideas to life.
+        </p>
+
+        <a onclick="OpenModal(7)" class="btna">Why to choose us?</a>
+      </div>
+
+      <div class="home-img">
+        <img src="images/logo.png" alt="" style="border-radius: 50%" />
+      </div>
+    </section>
+
+    <section class="aboutsite" id="aboutsite">
+      <div class="aboutsite-img">
+        <img src="images/logo.png" alt="" style="border-radius: 50%" />
+      </div>
+
+      <div class="aboutsite-content">
+        <h2 class="heading">About <span>The Site</span></h2>
+        <h3>AtlasGuessr</h3>
+        <p>
+          Think you know Asia? Test your geographical skills in this immersive
+          guessing game! Pinpoint locations across Asia and earn points based on
+          accuracy. Compete with friends, climb the leaderboard, and explore
+          famous landmarks and hidden gems. Fun, educational, and
+          challenging—how well do you really know Asia? Start now!
+        </p>
+
+        <a onclick="OpenModal(1)" class="btn">Read More</a>
+      </div>
+    </section>
+
+    <section class="about" id="aboutdis">
+      <div class="about-content">
+        <h2 class="heading">About <span>Our Discord</span></h2>
+        <h3>CodeRoyale</h3>
+        <p>
+          This Discord server offers a virtual casino experience with classic
+          games like Poker, Blackjack, Roulette, and Slots. It features a
+          strategic virtual economy, active leaderboards, and regular events
+          such as tournaments and jackpots. The community is engaging and
+          competitive, providing a space for players to enjoy casino-style games
+          in a risk-free, interactive environment that evolves with new content
+          and challenges. Join now!
+        </p>
+
+        <a onclick="OpenModal(2)" class="btn">Read More</a>
+      </div>
+
+      <div class="about-img">
+        <img src="images/logo.png" alt="" style="border-radius: 50%" />
+      </div>
+    </section>
+
+    <section class="skills" id="skills">
+      <h2 class="heading">Our <span>Skills</span></h2>
+
+      <div class="skills-container">
+        <div class="skills-box">
+          <i class="bx bx-code-alt"></i>
+          <h3>Web Development</h3>
+          <p>
+            Skilled in HTML, CSS, JavaScript, and Python for full-stack
+            development. Experienced with React, Bootstrap, and Django. Strong
+            focus on responsive design, accessibility, and creating dynamic,
+            interactive interfaces using modern frontend technologies.
+          </p>
+          <a onclick="OpenModal(3)" class="btn">Read More</a>
+        </div>
+
+        <div class="skills-box">
+          <i class="bx bxs-server"></i>
+          <h3>Backend & Automation</h3>
+          <p>
+            Proficient in Python for backend development, RESTful APIs, and
+            automation. Experienced with Django, Flask, and scripting tools like
+            BeautifulSoup and Selenium. Strong in OOP principles and building
+            scalable, data-driven backend systems.
+          </p>
+          <a onclick="OpenModal(4)" class="btn">Read More</a>
+        </div>
+
+        <div class="skills-box">
+          <i class="bx bx-bot"></i>
+          <h3>Discord Bots</h3>
+          <p>
+            Experienced in developing advanced Discord bots using Python for
+            moderation, automation, and engagement. Skilled in managing Discord
+            servers, organizing roles, permissions, events, and integrating bots
+            to create active, well-structured communities.
+          </p>
+          <a onclick="OpenModal(5)" class="btn">Read More</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+      <h2 class="heading">Latest <span>Projects</span></h2>
+
+      <div class="porfolio-container">
+        <div class="portfolio-box">
+          <img src="images/porfolio1.png" alt="" />
+          <div class="portfolio-layer">
+            <h4>Discord Bot</h4>
+            <p>
+              CodeRoyale - the best Discord Bot for non-risk casino, competing
+              with other people and many more things!
+            </p>
+            <a target="_blank" href="https://discord.gg/aUa29Rg9Vq"
+              ><i class="bx bx-link-external"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="portfolio-box">
+          <img src="images/portfolio2.png" alt="" />
+          <div class="portfolio-layer">
+            <h4>Discord Server</h4>
+            <p>
+              CodeRoyale is a little discord server with a few members, but
+              loads of fun games and events! Join Now!
+            </p>
+            <a target="_blank" href="https://discord.gg/aUa29Rg9Vq"
+              ><i class="bx bx-link-external"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="portfolio-box">
+          <img src="images/portfolio3.png" alt="" />
+          <div class="portfolio-layer">
+            <h4>Geo Site</h4>
+            <p>
+              AtlasGuessr is a great site to test your geo knoledges! There are
+              a few fun games to guess geo objects!
+            </p>
+            <a target="_blank" href="index.html"
+              ><i class="bx bx-link-external"></i
+            ></a>
+          </div>
+        </div>
+
+        <!--OSHTE TRI NESHTA KATO GI NAPRAVIM-->
+        <!--OSHTE TRI NESHTA KATO GI NAPRAVIM-->
+        <!--OSHTE TRI NESHTA KATO GI NAPRAVIM-->
+        <!--OSHTE TRI NESHTA KATO GI NAPRAVIM-->
+        <!--OSHTE TRI NESHTA KATO GI NAPRAVIM-->
+        <!--OSHTE TRI NESHTA KATO GI NAPRAVIM-->
+        <!--OSHTE TRI NESHTA KATO GI NAPRAVIM-->
+      </div>
+    </section>
+
+    <footer id="contacts">
+      <h2>
+        Contact Us in the Discord Server
+        <a href="https://discord.gg/aUa29Rg9Vq">CodeRoyale</a> and tag the role
+        Developer team!<a target="_blank" href="https://discord.gg/aUa29Rg9Vq"
+          ><i class="bx bx-link-external"></i
+        ></a>
+      </h2>
+    </footer>
+
+    <script src="https://unpkg.com/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
+
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+    <script src="about.js"></script>
+  </body>
+</html>

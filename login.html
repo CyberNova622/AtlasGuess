@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AtlasGuessr</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        box-sizing: border-box;
+      }
+
+      body,
+      html {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        background-color: #0e0e0e;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Arial", sans-serif;
+        min-height: 100vh;
+      }
+
+      .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 0;
+      }
+
+      .particles-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .particle {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.9;
+        pointer-events: none;
+        will-change: transform, opacity;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      }
+
+      .wrapper {
+        z-index: 1;
+        width: 420px;
+        background: transparent;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        color: #fff;
+        border-radius: 20px;
+        padding: 30px 40px;
+      }
+
+      .wrapper h1 {
+        font-family: "Tw Cen MT";
+        font-size: 45px;
+        text-align: center;
+        padding: 10px;
+      }
+
+      .wrapper .input-box {
+        position: relative;
+        width: 100%;
+        height: 50px;
+        margin: 30px 0;
+      }
+
+      .input-box input {
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        border: none;
+        outline: none;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 40px;
+        font-size: 18px;
+        color: #fff;
+        padding: 20px 45px 20px 20px;
+      }
+
+      .input-box input::placeholder {
+        color: #fff;
+      }
+
+      .input-box i {
+        position: absolute;
+        right: 25px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 25px;
+      }
+
+      #pass:hover {
+        cursor: pointer;
+      }
+
+      .wrapper .remember-forgot {
+        display: flex;
+        justify-content: space-between;
+        font-size: 17px;
+        margin: -15px 0 15px;
+        padding-left: 3px;
+        padding-right: 3px;
+      }
+
+      .remember-forgot label input {
+        accent-color: #fff;
+        margin-right: 3px;
+      }
+
+      .remember-forgot a {
+        color: #fff;
+        text-decoration: none;
+      }
+
+      .remember-forgot a:hover {
+        text-decoration: underline;
+      }
+
+      .wrapper .btn {
+        width: 100%;
+        height: 47px;
+        border: none;
+        outline: none;
+        border-radius: 45px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        color: #272727;
+        font-weight: 700;
+        font-size: 18px;
+      }
+
+      .wrapper .register-link {
+        font-size: 16px;
+        text-align: center;
+        margin: 20px 0 15px;
+      }
+
+      .register-link p a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .register-link p a:hover {
+        text-decoration: underline;
+      }
+
+      .discord a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 17px;
+        text-align: center;
+      }
+
+      .discord:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background">
+      <div class="particles-container" id="particles-container"></div>
+    </div>
+
+    <div class="wrapper">
+      <form action="">
+        <h1>Log In</h1>
+
+        <div class="input-box">
+          <input type="text" placeholder="Username" required />
+          <i class="bx bxs-user"></i>
+        </div>
+
+        <div class="input-box">
+          <input type="password" placeholder="Password" id="passa" required />
+          <i class="bx bxs-lock-alt" id="pass"></i>
+        </div>
+
+        <p id="email"></p>
+
+        <div class="remember-forgot">
+          <label class="checkbox"
+            ><input type="checkbox" /><span class="checkmark"></span> Remember
+            me</label
+          >
+          <a href="forgottenpas.html">Forgot password</a>
+        </div>
+
+        <button class="btn">Log In</button>
+
+        <div class="register-link">
+          <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      document.getElementById("pass").addEventListener("click", function () {
+        const password = document.getElementById("passa");
+        if (password.type === "password") {
+          password.type = "text";
+        } else {
+          password.type = "password";
+        }
+      });
+      const particles = [];
+
+      function createParticle() {
+        const particle = document.createElement("div");
+        particle.classList.add("particle");
+
+        const size = Math.random() * 10 + 5;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+
+        const xStart = Math.random() * window.innerWidth;
+        const yStart = Math.random() * window.innerHeight;
+        const zStart = Math.random() * 500 - 250;
+        particle.style.left = `${xStart}px`;
+        particle.style.top = `${yStart}px`;
+
+        const speedX = Math.random() * 4 - 2;
+        const speedY = Math.random() * 4 - 2;
+        const speedZ = Math.random() * 2 - 1;
+
+        const colors = ["#FF5733", "#33FF57", "#5733FF", "#FF33A6", "#33A6FF"];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.backgroundColor = randomColor;
+
+        particles.push({
+          element: particle,
+          x: xStart,
+          y: yStart,
+          z: zStart,
+          size: size,
+          speedX: speedX,
+          speedY: speedY,
+          speedZ: speedZ,
+          color: randomColor,
+          opacity: 0.9,
+        });
+
+        document.getElementById("particles-container").appendChild(particle);
+      }
+
+      function updateParticles() {
+        particles.forEach((particle, index) => {
+          particle.x += particle.speedX;
+          particle.y += particle.speedY;
+          particle.z += particle.speedZ;
+
+          const scale = Math.max(0.1, 1 - Math.abs(particle.z) / 300);
+          const opacity = Math.max(0.1, 1 - Math.abs(particle.z) / 300);
+          particle.element.style.transform = `translate3d(${particle.x}px, ${particle.y}px, ${particle.z}px) scale(${scale})`;
+          particle.element.style.opacity = opacity;
+
+          particle.opacity = Math.random() * 0.5 + 0.4;
+
+          if (
+            particle.x < 0 ||
+            particle.x > window.innerWidth ||
+            particle.y < 0 ||
+            particle.y > window.innerHeight ||
+            Math.abs(particle.z) > 300
+          ) {
+            particles.splice(index, 1);
+            particle.element.remove();
+          }
+        });
+
+        requestAnimationFrame(updateParticles);
+      }
+
+      setInterval(createParticle, 3);
+
+      updateParticles();
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>

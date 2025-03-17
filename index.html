@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AtlasGuessr</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #fff;
+        overflow-x: hidden;
+        background: #141724;
+      }
+    </style>
+  </head>
+  <body id="PageContent">
+    <nav style="z-index: 69" class="nav">
+      <div class="logo-container">
+        <img
+          id="logo1"
+          src="images/favicon.png"
+          alt="An island with palms as a logo"
+        />
+        <h1 id="logo">AtlasGuessr</h1>
+      </div>
+
+      <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="signup.html">Sign Up</a>
+        <a href="login.html">Log In</a>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <h1>Welcome to CodeRoyale Geo site</h1>
+      <p>
+        Your ultimate companion for managing your Discord server and teaching
+        yopu geography
+      </p>
+    </div>
+
+    <div class="card" onmouseover="scrollToDiv(this)">
+      <h1>Play Now</h1>
+      <button class="gaybtn" onclick="startGame()">Start Game</button>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
+    <div id="gameModal" class="modal">
+      <h2>Game is Starting...</h2>
+      <p>Get ready!</p>
+      <button id="tvakopche" onclick="closeModal()">OK</button>
+    </div>
+
+    <div class="background-animation">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <footer>
+      <div class="row">
+        <div class="col">
+          <img
+            src="images/tva-removebg-preview.png"
+            alt="Gay"
+            class="logo"
+            style="height: 80px; margin-bottom: 0px"
+          />
+
+          <p>
+            This is the second thing made by CodeRoyale "AtlasGuessr".
+            CodeRoyale specializes in Discord server hosting, bot development
+            and custom coding solutions. We started with Discord bots and now
+            share our expertise on YouTube. Let’s bring your ideas to life!
+          </p>
+        </div>
+
+        <div class="col">
+          <h2 id="takovata">About Us</h2>
+          <ul>
+            <li><a href="about.html#home">About Us</a></li>
+            <li><a href="about.html#aboutsite">About the site</a></li>
+            <li><a href="about.html#aboutdis">Our Discord Server</a></li>
+            <li><a href="about.html#skills">Skills</a></li>
+            <li><a href="about.html#portfolio">Portfolio</a></li>
+            <li><a href="about.html#contacts">Contacts</a></li>
+          </ul>
+        </div>
+
+        <div class="col" id="tva">
+          <h2 id="soc">Social Media</h2>
+          <ul>
+            <li>
+              <a target="_blank" id="dis" href="https://discord.gg/aUa29Rg9Vq"
+                ><i class="fa-brands fa-discord"></i
+              ></a>
+            </li>
+
+            <li>
+              <a
+                target="_blank"
+                id="tt"
+                href="https://www.tiktok.com/@betoncode?is_from_webapp=1&sender_device=pc"
+                ><i class="fa-brands fa-tiktok"></i
+              ></a>
+            </li>
+
+            <li>
+              <a
+                target="_blank"
+                id="yt"
+                href="https://www.youtube.com/channel/UCYyJKk7NeD91vCRH9Cv81QA"
+                ><i class="fa-brands fa-youtube"></i
+              ></a>
+            </li>
+
+            <li>
+              <a target="_blank" id="insta" href="#"
+                ><i class="fa-brands fa-instagram"></i
+              ></a>
+            </li>
+
+            <li>
+              <a target="_blank" id="twit" href="#"
+                ><i class="fa-brands fa-x-twitter"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

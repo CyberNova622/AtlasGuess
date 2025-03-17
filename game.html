@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AtlasGuessr</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+
+    <style>
+      body:not(.down) {
+        margin: 0;
+        cursor: none;
+        overflow: hidden;
+      }
+      #map {
+        position: absolute;
+        z-index: 0;
+        height: 80vh;
+        width: 100vw;
+        position: relative;
+      }
+      #map.hide-cursor:hover {
+        cursor: none;
+      }
+      .leaflet-control-container {
+        display: none;
+      }
+      .custom-cursor {
+        position: fixed;
+        width: 40px;
+        height: 50px;
+        background: url("images/location.png") no-repeat center;
+        background-size: contain;
+        transform: translate(-50%, -100%);
+        pointer-events: none;
+        z-index: 1000;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="up">
+      <h2 id="rund"></h2>
+      <h1 id="random"></h1>
+      <h2 id="points"></h2>
+    </div>
+
+    <div class="timer">
+      <p id="timerche"></p>
+    </div>
+
+    <div id="map"></div>
+    <div id="cursor" class="custom-cursor"></div>
+
+    <div class="down">
+      <div class="previous">
+        <button id="kopchence">Hint</button>
+      </div>
+      <div class="shantavo1">
+        <button onclick="startGame()" id="kopche" style="z-index: 5">
+          Next Round
+        </button>
+      </div>
+      <div class="skip">
+        <button id="kopchence">Skip</button>
+      </div>
+    </div>
+
+    <script>
+      const map = L.map("map", {
+        zoomControl: false,
+        attributionControl: false,
+      }).setView([20, 0], 2);
+
+      L.tileLayer(
+        "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"
+      ).addTo(map);
+
+      const cursor = document.getElementById("cursor");
+      const mapDiv = document.getElementById("map");
+
+      let markerPlaced = false;
+      let cursorUnlocked = false;
+      let mouseDownPos = null;
+      let marker;
+
+      document.body.style.cursor = "none";
+      mapDiv.classList.add("hide-cursor");
+
+      document.addEventListener("mousemove", (e) => {
+        if (!markerPlaced) {
+          cursor.style.left = `${e.clientX}px`;
+          cursor.style.top = `${e.clientY}px`;
+        }
+      });
+
+      mapDiv.addEventListener("mousedown", (e) => {
+        mouseDownPos = { x: e.clientX, y: e.clientY };
+      });
+
+      map.on("click", (e) => {
+        if (!mouseDownPos) return;
+
+        const dx = e.originalEvent.clientX - mouseDownPos.x;
+        const dy = e.originalEvent.clientY - mouseDownPos.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < 5) {
+          if (markerPlaced) {
+            marker.setLatLng(e.latlng);
+          } else {
+            marker = L.marker(e.latlng, {
+              icon: L.icon({
+                iconUrl: "images/location.png",
+                iconSize: [40, 50],
+                iconAnchor: [20, 50],
+              }),
+              draggable: true,
+            }).addTo(map);
+
+            markerPlaced = true;
+            document.body.style.cursor = "default";
+            cursor.style.display = "none";
+            mapDiv.classList.remove("hide-cursor");
+          }
+        }
+
+        mouseDownPos = null;
+      });
+
+      document.addEventListener("mousemove", (e) => {
+        const upDiv = document.querySelector(".up");
+        const downDiv = document.querySelector(".down");
+        const shantavDiv = document.querySelector(".shantavo");
+        const isOverUpDiv = upDiv.contains(e.target);
+        const isOverDownDiv = downDiv.contains(e.target);
+        const isOverShantavDiv = shantavDiv.contains(e.target);
+
+        if (isOverUpDiv) {
+          cursor.style.display = "none";
+          document.body.style.cursor = "default";
+        } else if (isOverShantavDiv) {
+          cursor.style.display = "none";
+          document.body.style.cursor = "default";
+        } else if (isOverDownDiv) {
+          cursor.style.display = "none";
+          document.body.style.cursor = "default";
+        } else {
+          if (!markerPlaced) {
+            cursor.style.display = "block";
+            document.body.style.cursor = "none";
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
+          }
+        }
+      });
+    </script>
+    <script src="script.js"></script>
+    <script src="game.js"></script>
+  </body>
+</html>
