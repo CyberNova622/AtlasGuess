@@ -7,6 +7,7 @@ let shape = null;
 let points = 0;
 const maxDistance = 5000;
 let currentTyped = null;
+chosenlocation = null;
 let = location_names = [
     "Урал",
     "Западно сибирска низина",
@@ -151,6 +152,7 @@ function setRandomLocation() {
     currentLocation = location_names[randomIndex];
 
     document.getElementById('random').textContent = currentLocation;
+    chosenlocation = currentLocation
 }
 
 function checkGuess() {
