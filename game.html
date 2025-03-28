@@ -46,9 +46,15 @@
   </head>
   <body>
     <div class="up">
-      <h2 id="rund"></h2>
-      <h1 id="random"></h1>
-      <h2 id="points"></h2>
+      <div class="round">
+        <h2 id="rund"></h2>
+      </div>
+      <div class="shantavo">
+        <h1 id="random"></h1>
+      </div>
+      <div class="points">
+        <h2 id="points"></h2>
+      </div>
     </div>
 
     <div class="timer">
@@ -60,10 +66,10 @@
 
     <div class="down">
       <div class="previous">
-        <button id="kopchence">Hint</button>
+        <button id="kopchence" onclick="coords()">Hint</button>
       </div>
       <div class="shantavo1">
-        <button onclick="startGame()" id="kopche" style="z-index: 5">
+        <button onclick="continueGame()" id="kopche" style="z-index: 5">
           Next Round
         </button>
       </div>
@@ -72,15 +78,20 @@
       </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
     <script>
       const map = L.map("map", {
         zoomControl: false,
         attributionControl: false,
-      }).setView([20, 0], 2);
+      }).setView([30, 5], 1.5);
 
-      L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"
-      ).addTo(map);
+      L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+        minZoom: 1,
+        maxZoom: 17,
+        attribution:
+          '&copy; <a href="https://www.opentopomap.org/copyright">OpenTopoMap</a> contributors',
+      }).addTo(map);
 
       const cursor = document.getElementById("cursor");
       const mapDiv = document.getElementById("map");
@@ -129,6 +140,32 @@
             cursor.style.display = "none";
             mapDiv.classList.remove("hide-cursor");
           }
+
+          const lat = marker.getLatLng().lat;
+          const lng = marker.getLatLng().lng;
+
+          const toDMS = (coord, isLat) => {
+            const deg = Math.floor(coord);
+            const min = Math.floor((coord - deg) * 60);
+            const sec = Math.floor(((coord - deg) * 60 - min) * 60);
+            const direction = isLat
+              ? coord >= 0
+                ? "N"
+                : "S"
+              : coord >= 0
+              ? "E"
+              : "W";
+            return `${Math.abs(deg)}°${min < 10 ? "0" : ""}${min}'${
+              sec < 10 ? "0" : ""
+            }${sec}\"${direction}`;
+          };
+
+          window.marker_coordinates = {
+            east: toDMS(lat, true),
+            west: toDMS(lng, false),
+          };
+
+          console.log(marker_coordinates);
         }
 
         mouseDownPos = null;
@@ -160,6 +197,15 @@
           }
         }
       });
+
+      function coords() {
+        const coords = marker.getLatLng();
+        const lat = coords.lat.toFixed(0);
+        const lng = coords.lng.toFixed(0);
+        alert(`The coordinates are:            ${lat}, ${lng}`);
+      }
+
+      const marker_coords = marker_coordinates;
     </script>
     <script src="script.js"></script>
     <script src="game.js"></script>
